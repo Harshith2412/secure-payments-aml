@@ -1,0 +1,29 @@
+services:
+  postgres:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: app
+      POSTGRES_PASSWORD: app
+      POSTGRES_DB: payments
+    ports: ["5432:5432"]
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  redis:
+    image: redis:7
+    ports: ["6379:6379"]
+
+  api:
+    build: ./apps/api
+    env_file: ./.env
+    ports: ["8000:8000"]
+    depends_on: [postgres, redis]
+
+  aml:
+    build: ./apps/aml
+    env_file: ./.env
+    ports: ["8001:8001"]
+    depends_on: [postgres, redis]
+
+volumes:
+  pgdata:
