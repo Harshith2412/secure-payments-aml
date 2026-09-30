@@ -12,3 +12,4 @@ stripe==11.4.1
 cryptography==44.0.0
 structlog==24.4.0
 httpx==0.28.1
+urllib3>=2.8.0 # not directly required, pinned by Snyk to avoid a vulnerability
